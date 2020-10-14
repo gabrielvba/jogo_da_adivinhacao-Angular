@@ -1,0 +1,4 @@
+<div>
+    <a routerLink="home" class="btn" style="border-radius: 10px 0px 0px 0px;" (click)="alternaBotao('home')" [ngClass]="{'active' : tipo === 'home'}"><span>Inicio</span></a>
+    <a routerLink="rank" class="btn" style="border-radius: 0px 10px 0px 0px;" (click)="alternaBotao('rank')" [ngClass]="{'active' : tipo === 'rank'}"><span>Rank</span></a>
+</div>
