@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { JogoServiceService } from '../jogo-service.service';
-import { JogoDTO } from './jogoDTO';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +12,7 @@ export class HomeComponent implements OnInit {
   min: number = 1;
   chute: number;
   meusJogos = [];
-  rank = [];
+  rank = []; 
   jogo = {
     nome: "",
     tempoInicio: 0,
@@ -45,12 +44,13 @@ export class HomeComponent implements OnInit {
     ) 
   }
 
-  getJogosByName(){
+  jogar(){
     this.jogoServiceService.getJogosByName(this.jogo.nome).subscribe(
       jogos => {
         if (jogos != null){
           this.meusJogos = jogos;
           this.jogo.partidas = jogos.content[0].partidas;
+          this.jogo.tempoInicio = new Date().getTime();
         } 
         console.log(this.jogo.partidas);
       }, err =>{
@@ -59,8 +59,8 @@ export class HomeComponent implements OnInit {
     ) 
   }
 
-  addProduto(){
-    this.jogoServiceService.addProduto(this.jogo).subscribe(
+  addJogo(){
+    this.jogoServiceService.addJogo(this.jogo).subscribe(
       jogo => {
         console.log(this.jogo)
       }, err =>{
@@ -90,5 +90,8 @@ export class HomeComponent implements OnInit {
     console.log(this.jogo); 
   }
 
-  
+  fimDaPartida(){
+    this.jogo.tempoFim = new Date().getTime();
+    this.addJogo();
+  }
 }

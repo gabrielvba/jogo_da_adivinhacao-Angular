@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { JogoDTO } from './home/jogoDTO';
+
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -26,7 +26,7 @@ export class JogoServiceService {
     return this.http.get<any>(url)
   }
 
-  addProduto (jogo: JogoDTO): Observable<any> {
+  addJogo (jogo: any): Observable<any> {
   return this.http.post<any>(apiUrl, jogo, httpOptions)
   }
 
