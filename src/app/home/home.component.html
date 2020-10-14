@@ -1,0 +1,23 @@
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+          Você deve pensar em um numero entre 1 e 1000, e indicar se o numero sugerido é maior ou menor
+        </div>
+    </div>
+    <form>
+        <div class="form-row justify-content-md-center">
+          <div class="col-4">
+            <input [(ngModel)]="jogo.nome" type="text" class="form-control" placeholder="Name" name="name" ngModel>
+          </div>      
+        </div>
+        <div class="col-8">
+            <button type="submit" (click)="getJogosByName()"class="btn btn-primary btn-lg">Jogar</button>
+            <button type="submit" (click)="jogarNovamente()"class="btn btn-primary btn-lg">Jogar Novamente</button>
+            <button type="submit" (click)="numeroDiferente()"class="btn btn-primary btn-lg">Maior</button>
+            <button type="submit" (click)="numeroDiferente()"class="btn btn-primary btn-lg">Menor</button>
+
+        </div>
+    </form>
+</div>
+
