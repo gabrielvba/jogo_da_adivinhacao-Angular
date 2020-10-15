@@ -20,26 +20,28 @@ export class JogoComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedService.sharedJogo.subscribe(jogo => this.jogo = jogo);
-    this.getRandomInt(this.max,this.min);
+    this.getMeusJogos();
+    this.getRandomInt(this.max, this.min);
   }
 
-  getRandomInt(max: number,min: number): void {
-    this.chute =  Math.floor(Math.random() * (max - min + 1) + min);
+  getRandomInt(max: number, min: number): void {
+    this.chute = Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  addJogo(){
+  addJogo() {
     this.jogoServiceService.addJogo(this.jogo).subscribe(
       jogo => {
         console.log(this.jogo)
-      }, err =>{
+      }, err => {
         console.log('ERRO ao listar jogos')
       }
-    ) 
+    )
   }
 
-  jogarNovamente(){
+  jogarNovamente() {
+    this.getRandomInt(this.max, this.min);
     this.jogo.partidas += 1;
-    this.jogo = {  
+    this.jogo = {
       nome: this.jogo.nome,
       tempoInicio: new Date().getTime(),
       tempoFim: 0,
@@ -49,33 +51,36 @@ export class JogoComponent implements OnInit {
     this.mode = true;
   }
 
-  numeroMenor(){
+  numeroMenor() {
     this.jogo.tentativas += 1;
     this.max = this.chute;
-    this.getRandomInt(this.max,this.min);
-    console.log(this.jogo); 
+    this.getRandomInt(this.max, this.min);
+    console.log(this.jogo);
   }
 
-  numeroMaior(){
+  numeroMaior() {
     this.jogo.tentativas += 1;
     this.min = this.chute;
-    this.getRandomInt(this.max,this.min);
-    console.log(this.jogo); 
+    this.getRandomInt(this.max, this.min);
+    console.log(this.jogo);
   }
 
 
-  fimDaPartida(){
+  fimDaPartida() {
     this.jogo.tempoFim = new Date().getTime();
-    this.addJogo();
+    this.addJogo()
+    this.getMeusJogos()
+    this.max = 1000;
+    this.min = 1;
+    this.mode = false;
+  }
+
+  getMeusJogos() {
     this.jogoServiceService.getJogosByName(this.jogo.nome).subscribe(
       meusJogos => {
         this.meusJogos = meusJogos;
-        if(meusJogos){
-          this.mode = false;
-          this.max = 1000;
-          this.min = 1;
-        }
       })
+
   }
 }
 

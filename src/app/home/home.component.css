@@ -1,3 +1,19 @@
 .ng-invalid.ng-touched:not(form) {
     border: 2px solid  red;
 }
+.centralizar-botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+button{
+    margin-top: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.margem{
+    margin-top: 5px;
+}
