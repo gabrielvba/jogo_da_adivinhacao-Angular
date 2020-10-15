@@ -1,0 +1,17 @@
+<div *ngIf="mode">
+    <button type="submit" (click)="numeroDiferente()"class="btn btn-primary btn-lg">Maior</button>
+    <button type="submit" (click)="numeroDiferente()"class="btn btn-primary btn-lg">Menor</button>
+    <button type="submit" (click)="fimDaPartida()"class="btn btn-primary btn-lg">igual</button>
+</div>
+<div *ngIf="!mode">
+    <table>
+        <tr *ngFor="let jogador of meusJogos.content">
+            <td>{{ jogador.nome }}</td>
+            <td>{{ jogador.tentativas }}</td>
+            <td>{{ jogador.partidas }}</td>
+            <td>{{ jogador.duracao }}</td>
+          </tr>
+        </table>
+    <button type="submit" (click)="jogarNovamente()"class="btn btn-primary btn-lg">Jogar Novamente</button>
+    <button type="submit" (click)="inicio()" routerLink="/home" class="btn btn-primary btn-lg">sair</button>
+</div>

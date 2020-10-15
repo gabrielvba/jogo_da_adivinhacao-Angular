@@ -1,2 +1,8 @@
-<p>rank works!</p>
-<button type="submit" (click)="fimDaPartida()"class="btn btn-primary btn-lg">igual</button>
+<table>
+<tr *ngFor="let jogador of rank.content">
+    <td>{{ jogador.nome }}</td>
+    <td>{{ jogador.tentativas }}</td>
+    <td>{{ jogador.partidas }}</td>
+    <td>{{ jogador.duracao }}</td>
+  </tr>
+</table>

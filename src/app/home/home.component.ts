@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { JogoServiceService } from '../jogo-service.service';
+import { JogoServiceService } from '../service/jogo-service.service';
+import { SharedService } from '../service/shared-service';
 
 @Component({
   selector: 'app-home',
@@ -8,90 +9,32 @@ import { JogoServiceService } from '../jogo-service.service';
 })
 export class HomeComponent implements OnInit {
 
-  max: number = 1000;
-  min: number = 1;
-  chute: number;
-  meusJogos = [];
-  rank = []; 
-  jogo = {
-    nome: "",
-    tempoInicio: 0,
-    tempoFim: 0,
-    tentativas: 0,
-    partidas: 0,
-  };
+  jogo;
   
-  constructor(private jogoServiceService: JogoServiceService) { }
+  constructor(private jogoServiceService: JogoServiceService, private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.getRank();
-    this.getRandomInt();
+    this.sharedService.sharedJogo.subscribe(jogo => this.jogo = jogo);
   }
  
-  getRandomInt(): void {
-    this.chute =  Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
-  }
-  
-  getRank(){
-    this.jogoServiceService.getRank().subscribe(
-      jogo => {
-        this.rank = jogo;
-        console.log(jogo);
-        console.log(this.rank );
-      }, err =>{
-        console.log('ERRO ao listar jogos')
-      }
-    ) 
-  }
-
-  jogar(){
+  jogar() {
     this.jogoServiceService.getJogosByName(this.jogo.nome).subscribe(
       jogos => {
-        if (jogos != null){
-          this.meusJogos = jogos;
-          this.jogo.partidas = jogos.content[0].partidas;
+        if (jogos.content[0] != null && jogos.content[0] != undefined ){
+          this.jogo.partidas = jogos.content[0].partidas + 1;
           this.jogo.tempoInicio = new Date().getTime();
-        } 
+          this.jogo.tempoFim = 0;
+          this.jogo.tentativas = 0;
+        } else {
+          this.jogo.partidas = 1;
+          this.jogo.tempoInicio = new Date().getTime();
+          this.jogo.tempoFim = 0;
+          this.jogo.tentativas = 0;
+        }
         console.log(this.jogo.partidas);
       }, err =>{
         console.log('ERRO ao buscar jogos de ' + this.jogo.nome);
       }
     ) 
-  }
-
-  addJogo(){
-    this.jogoServiceService.addJogo(this.jogo).subscribe(
-      jogo => {
-        console.log(this.jogo)
-      }, err =>{
-        console.log('ERRO ao listar jogos')
-      }
-    ) 
-  }
-
-  jogarNovamente(){
-    console.log(this.jogo.partidas);
-    console.log(this.jogo);
-    this.jogo.partidas += 1;
-    this.jogo = {  
-      nome: this.jogo.nome,
-      tempoInicio: 0,
-      tempoFim: 0,
-      tentativas: 0,
-      partidas: this.jogo.partidas,
-    };
-    console.log(this.jogo.partidas);
-    console.log(this.jogo); 
-
-  }
-
-  numeroDiferente(){
-    this.jogo.tentativas += 1;
-    console.log(this.jogo); 
-  }
-
-  fimDaPartida(){
-    this.jogo.tempoFim = new Date().getTime();
-    this.addJogo();
   }
 }

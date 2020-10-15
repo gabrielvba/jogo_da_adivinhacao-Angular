@@ -1,8 +1,15 @@
-div {
+#container-pai {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#container-filho {
+    background-color: #505050;
+    box-shadow: 2px 4px 100px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    max-width: 500px;
 }
