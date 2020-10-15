@@ -9,7 +9,6 @@ import { SharedService } from '../service/shared-service';
 })
 export class JogoComponent implements OnInit {
 
-  
   max: number = 1000;
   min: number = 1;
   chute: number;
@@ -17,16 +16,15 @@ export class JogoComponent implements OnInit {
   meusJogos = [];
   jogo;
 
-
-  
   constructor(private jogoServiceService: JogoServiceService, private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this.getRandomInt(this.max,this.min);
     this.sharedService.sharedJogo.subscribe(jogo => this.jogo = jogo);
   }
 
-  getRandomInt(): void {
-    this.chute =  Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
+  getRandomInt(max: number,min: number): void {
+    this.chute =  Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   addJogo(){
@@ -51,10 +49,20 @@ export class JogoComponent implements OnInit {
     this.mode = true;
   }
 
-  numeroDiferente(){
+  numeroMenor(){
     this.jogo.tentativas += 1;
+    this.max = this.chute;
+    this.getRandomInt(this.max,this.min);
     console.log(this.jogo); 
   }
+
+  numeroMaior(){
+    this.jogo.tentativas += 1;
+    this.min = this.chute;
+    this.getRandomInt(this.max,this.min);
+    console.log(this.jogo); 
+  }
+
 
   fimDaPartida(){
     this.jogo.tempoFim = new Date().getTime();
@@ -62,8 +70,12 @@ export class JogoComponent implements OnInit {
     this.jogoServiceService.getJogosByName(this.jogo.nome).subscribe(
       meusJogos => {
         this.meusJogos = meusJogos;
+        if(meusJogos){
+          this.mode = false;
+          this.max = 1000;
+          this.min = 1;
+        }
       })
-    this.mode = false;
   }
 }
 

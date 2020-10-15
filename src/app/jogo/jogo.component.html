@@ -1,17 +1,29 @@
 <div *ngIf="mode">
-    <button type="submit" (click)="numeroDiferente()"class="btn btn-primary btn-lg">Maior</button>
-    <button type="submit" (click)="numeroDiferente()"class="btn btn-primary btn-lg">Menor</button>
+    <p>{{chute}}</p>
+    <button type="submit" (click)="numeroMaior()"class="btn btn-primary btn-lg">Maior</button>
+    <button type="submit" (click)="numeroMenor()"class="btn btn-primary btn-lg">Menor</button>
     <button type="submit" (click)="fimDaPartida()"class="btn btn-primary btn-lg">igual</button>
 </div>
 <div *ngIf="!mode">
-    <table>
-        <tr *ngFor="let jogador of meusJogos.content">
-            <td>{{ jogador.nome }}</td>
-            <td>{{ jogador.tentativas }}</td>
-            <td>{{ jogador.partidas }}</td>
-            <td>{{ jogador.duracao }}</td>
-          </tr>
-        </table>
+
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">PartidaSeq</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Tentativas</th>
+                <th scope="col">Duração</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let jogador of meusJogos.content">
+                    <td>{{ jogador.partidas }}</td>
+                    <td>{{ jogador.nome }}</td>
+                    <td>{{ jogador.tentativas }}</td>         
+                    <td>{{ jogador.duracao }}</td>
+                </tr>
+            </tbody>
+          </table>
     <button type="submit" (click)="jogarNovamente()"class="btn btn-primary btn-lg">Jogar Novamente</button>
     <button type="submit" (click)="inicio()" routerLink="/home" class="btn btn-primary btn-lg">sair</button>
 </div>
