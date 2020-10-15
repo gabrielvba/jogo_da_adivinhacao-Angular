@@ -24,12 +24,12 @@ export class HomeComponent implements OnInit {
           this.jogo.partidas = jogos.content[0].partidas + 1;
           this.jogo.tempoInicio = new Date().getTime();
           this.jogo.tempoFim = 0;
-          this.jogo.tentativas = 0;
+          this.jogo.tentativas = 1;
         } else {
           this.jogo.partidas = 1;
           this.jogo.tempoInicio = new Date().getTime();
           this.jogo.tempoFim = 0;
-          this.jogo.tentativas = 0;
+          this.jogo.tentativas = 1;         
         }
         console.log(this.jogo.partidas);
       }, err =>{

@@ -19,8 +19,8 @@ export class JogoComponent implements OnInit {
   constructor(private jogoServiceService: JogoServiceService, private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.getRandomInt(this.max,this.min);
     this.sharedService.sharedJogo.subscribe(jogo => this.jogo = jogo);
+    this.getRandomInt(this.max,this.min);
   }
 
   getRandomInt(max: number,min: number): void {
@@ -43,7 +43,7 @@ export class JogoComponent implements OnInit {
       nome: this.jogo.nome,
       tempoInicio: new Date().getTime(),
       tempoFim: 0,
-      tentativas: 0,
+      tentativas: 1,
       partidas: this.jogo.partidas,
     };
     this.mode = true;

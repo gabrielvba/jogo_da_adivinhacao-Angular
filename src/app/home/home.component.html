@@ -8,11 +8,14 @@
     <form>
         <div class="form-row justify-content-md-center">
           <div class="col-4">
-            <input [(ngModel)]="jogo.nome" type="text" class="form-control" placeholder="Name" name="name" ngModel>
-          </div>      
+            <input #nome="ngModel" [(ngModel)]="jogo.nome"  type="text" class="form-control" placeholder="Name" name="name" required>
+          </div> 
         </div>
+        <div class="alert alert-danger"   *ngIf="nome.invalid && nome.touched">
+          Nome é obrigatorio!
+        </div> 
         <div class="col-8">
-            <button type="submit" routerLink="jogo" (click)="jogar()"class="btn btn-primary btn-lg">Jogar</button>
+            <button [disabled]="nome.invalid" type="submit" routerLink="jogo" (click)="jogar()"class="btn btn-primary btn-lg">Jogar</button>
         </div>
     </form>
 </div>
